@@ -1,0 +1,59 @@
+//landama2
+entity CCUser {
+    fullName String,
+    createdAt Instant
+}
+
+entity UserRole {
+    name String
+}
+
+entity UserSkill {
+    changedAt Instant
+}
+
+entity SkillLevel {
+    name String
+}
+
+entity Skill {
+    name String
+}
+
+entity Category {
+    name String
+}
+
+entity SubCategory {
+    name String
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+    UserRole to CCUser{userRole},
+    CCUser to UserSkill{user},
+    SkillLevel to UserSkill{skillLevel},
+    Skill to CCUser{skill},
+    Category to SubCategory{category},
+    Category to Skill{category},
+    SubCategory to Skill{subCategory}
+}
+//landama2
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+//paginate Job with pagination
+paginate CCUser with pagination
+paginate Skill with pagination
+paginate Category with pagination
+
+
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+angularSuffix * with mySuffix
