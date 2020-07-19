@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "Blog",
+    "title": "Skill Matrix App",
     "browsehappy": "Používáte <strong>zastaralý</strong> prohlížeč. Prosím <a href=\"http://browsehappy.com/?locale=en\">aktualizujte svůj prohlížeč</a> pro zlepšení použitelnosti.",
     "menu": {
       "home": "Domů",
@@ -36,8 +36,8 @@
     "form": {
       "username.label": "Uživatelské jméno",
       "username.placeholder": "Vaše uživatelské jméno",
-      "currentpassword.label": "Current password",
-      "currentpassword.placeholder": "Current password",
+      "currentpassword.label": "Současné heslo",
+      "currentpassword.placeholder": "Současné heslo",
       "newpassword.label": "Nové heslo",
       "newpassword.placeholder": "Nové heslo",
       "confirmpassword.label": "Potvrzení nového hesla",

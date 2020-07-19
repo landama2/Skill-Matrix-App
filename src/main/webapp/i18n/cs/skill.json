@@ -1,0 +1,25 @@
+{
+  "blogApp": {
+    "skill": {
+      "home": {
+        "title": "Skills",
+        "createLabel": "Vytvořit nový Skill",
+        "createOrEditLabel": "Vytvořit nebo změnit Skill",
+        "notFound": "Nenalezeny žádné Skills"
+      },
+      "created": "Nový Skill vytvořen s id {{ param }}",
+      "updated": "Skill s id  {{ param }} upraven",
+      "deleted": "Smazán Skill s id {{ param }}",
+      "delete": {
+        "question": "Jste si jisti, že chcete smazat Skill {{ id }}?"
+      },
+      "detail": {
+        "title": "Skill"
+      },
+      "name": "Jméno",
+      "cCUser": "CCUser",
+      "category": "Kategorie",
+      "subCategory": "Podkategorie"
+    }
+  }
+}
