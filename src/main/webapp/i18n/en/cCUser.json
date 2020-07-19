@@ -1,0 +1,26 @@
+{
+  "blogApp": {
+    "cCUser": {
+      "home": {
+        "title": "CC Users",
+        "createLabel": "Create a new CC User",
+        "createOrEditLabel": "Create or edit a CC User",
+        "notFound": "No CC Users found"
+      },
+      "created": "A new CC User is created with identifier {{ param }}",
+      "updated": "A CC User is updated with identifier {{ param }}",
+      "deleted": "A CC User is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete CC User {{ id }}?"
+      },
+      "detail": {
+        "title": "CC User"
+      },
+      "fullName": "Full Name",
+      "createdAt": "Created At",
+      "userSkill": "User Skill",
+      "userRole": "User Role",
+      "skill": "Skill"
+    }
+  }
+}

@@ -42,6 +42,25 @@ public class CacheConfiguration {
             createCache(cm, org.jhipster.blog.domain.User.class.getName());
             createCache(cm, org.jhipster.blog.domain.Authority.class.getName());
             createCache(cm, org.jhipster.blog.domain.User.class.getName() + ".authorities");
+            createCache(cm, org.jhipster.blog.domain.Blog.class.getName());
+            createCache(cm, org.jhipster.blog.domain.Entry.class.getName());
+            createCache(cm, org.jhipster.blog.domain.Entry.class.getName() + ".tags");
+            createCache(cm, org.jhipster.blog.domain.Tag.class.getName());
+            createCache(cm, org.jhipster.blog.domain.Tag.class.getName() + ".entries");
+            createCache(cm, org.jhipster.blog.domain.CCUser.class.getName());
+            createCache(cm, org.jhipster.blog.domain.CCUser.class.getName() + ".userSkills");
+            createCache(cm, org.jhipster.blog.domain.UserRole.class.getName());
+            createCache(cm, org.jhipster.blog.domain.UserRole.class.getName() + ".cCUsers");
+            createCache(cm, org.jhipster.blog.domain.UserSkill.class.getName());
+            createCache(cm, org.jhipster.blog.domain.SkillLevel.class.getName());
+            createCache(cm, org.jhipster.blog.domain.SkillLevel.class.getName() + ".userSkills");
+            createCache(cm, org.jhipster.blog.domain.Skill.class.getName());
+            createCache(cm, org.jhipster.blog.domain.Skill.class.getName() + ".cCUsers");
+            createCache(cm, org.jhipster.blog.domain.Category.class.getName());
+            createCache(cm, org.jhipster.blog.domain.Category.class.getName() + ".subCategories");
+            createCache(cm, org.jhipster.blog.domain.Category.class.getName() + ".skills");
+            createCache(cm, org.jhipster.blog.domain.SubCategory.class.getName());
+            createCache(cm, org.jhipster.blog.domain.SubCategory.class.getName() + ".skills");
             // jhipster-needle-ehcache-add-entry
         };
     }

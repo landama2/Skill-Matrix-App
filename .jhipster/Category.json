@@ -1,0 +1,35 @@
+{
+    "name": "Category",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "subCategory",
+            "otherEntityRelationshipName": "category",
+            "relationshipName": "subCategory"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "skill",
+            "otherEntityRelationshipName": "category",
+            "relationshipName": "skill"
+        }
+    ],
+    "changelogDate": "20200419164900",
+    "entityTableName": "category",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

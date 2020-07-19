@@ -1,0 +1,47 @@
+{
+    "name": "CCUser",
+    "fields": [
+        {
+            "fieldName": "fullName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "userSkill",
+            "otherEntityRelationshipName": "user",
+            "relationshipName": "userSkill"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "userRole",
+            "otherEntityRelationshipName": "cCUser",
+            "relationshipName": "userRole",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "skill",
+            "otherEntityRelationshipName": "cCUser",
+            "relationshipName": "skill",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200419164400",
+    "entityTableName": "cc_user",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

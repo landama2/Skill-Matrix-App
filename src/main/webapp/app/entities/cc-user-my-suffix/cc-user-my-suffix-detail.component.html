@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cCUser">
+            <h2><span jhiTranslate="blogApp.cCUser.detail.title">CC User</span> {{ cCUser.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="blogApp.cCUser.fullName">Full Name</span></dt>
+                <dd>
+                    <span>{{ cCUser.fullName }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.cCUser.createdAt">Created At</span></dt>
+                <dd>
+                    <span>{{ cCUser.createdAt }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.cCUser.userRole">User Role</span></dt>
+                <dd>
+                    <div *ngIf="cCUser.userRoleId">
+                        <a [routerLink]="['/user-role-my-suffix', cCUser.userRoleId, 'view']">{{ cCUser.userRoleId }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="blogApp.cCUser.skill">Skill</span></dt>
+                <dd>
+                    <div *ngIf="cCUser.skillId">
+                        <a [routerLink]="['/skill-my-suffix', cCUser.skillId, 'view']">{{ cCUser.skillId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cc-user-my-suffix', cCUser.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

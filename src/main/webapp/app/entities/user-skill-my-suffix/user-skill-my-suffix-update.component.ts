@@ -1,0 +1,110 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+
+import { IUserSkillMySuffix, UserSkillMySuffix } from 'app/shared/model/user-skill-my-suffix.model';
+import { UserSkillMySuffixService } from './user-skill-my-suffix.service';
+import { ICCUserMySuffix } from 'app/shared/model/cc-user-my-suffix.model';
+import { CCUserMySuffixService } from 'app/entities/cc-user-my-suffix/cc-user-my-suffix.service';
+import { ISkillLevelMySuffix } from 'app/shared/model/skill-level-my-suffix.model';
+import { SkillLevelMySuffixService } from 'app/entities/skill-level-my-suffix/skill-level-my-suffix.service';
+
+type SelectableEntity = ICCUserMySuffix | ISkillLevelMySuffix;
+
+@Component({
+  selector: 'jhi-user-skill-my-suffix-update',
+  templateUrl: './user-skill-my-suffix-update.component.html'
+})
+export class UserSkillMySuffixUpdateComponent implements OnInit {
+  isSaving = false;
+  ccusers: ICCUserMySuffix[] = [];
+  skilllevels: ISkillLevelMySuffix[] = [];
+
+  editForm = this.fb.group({
+    id: [],
+    changedAt: [],
+    userId: [],
+    skillLevelId: []
+  });
+
+  constructor(
+    protected userSkillService: UserSkillMySuffixService,
+    protected cCUserService: CCUserMySuffixService,
+    protected skillLevelService: SkillLevelMySuffixService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe(({ userSkill }) => {
+      if (!userSkill.id) {
+        const today = moment().startOf('day');
+        userSkill.changedAt = today;
+      }
+
+      this.updateForm(userSkill);
+
+      this.cCUserService.query().subscribe((res: HttpResponse<ICCUserMySuffix[]>) => (this.ccusers = res.body || []));
+
+      this.skillLevelService.query().subscribe((res: HttpResponse<ISkillLevelMySuffix[]>) => (this.skilllevels = res.body || []));
+    });
+  }
+
+  updateForm(userSkill: IUserSkillMySuffix): void {
+    this.editForm.patchValue({
+      id: userSkill.id,
+      changedAt: userSkill.changedAt ? userSkill.changedAt.format(DATE_TIME_FORMAT) : null,
+      userId: userSkill.userId,
+      skillLevelId: userSkill.skillLevelId
+    });
+  }
+
+  previousState(): void {
+    window.history.back();
+  }
+
+  save(): void {
+    this.isSaving = true;
+    const userSkill = this.createFromForm();
+    if (userSkill.id !== undefined) {
+      this.subscribeToSaveResponse(this.userSkillService.update(userSkill));
+    } else {
+      this.subscribeToSaveResponse(this.userSkillService.create(userSkill));
+    }
+  }
+
+  private createFromForm(): IUserSkillMySuffix {
+    return {
+      ...new UserSkillMySuffix(),
+      id: this.editForm.get(['id'])!.value,
+      changedAt: this.editForm.get(['changedAt'])!.value ? moment(this.editForm.get(['changedAt'])!.value, DATE_TIME_FORMAT) : undefined,
+      userId: this.editForm.get(['userId'])!.value,
+      skillLevelId: this.editForm.get(['skillLevelId'])!.value
+    };
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserSkillMySuffix>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(): void {
+    this.isSaving = false;
+    this.previousState();
+  }
+
+  protected onSaveError(): void {
+    this.isSaving = false;
+  }
+
+  trackById(index: number, item: SelectableEntity): any {
+    return item.id;
+  }
+}

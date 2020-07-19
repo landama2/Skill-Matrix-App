@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="skill">
+            <h2><span jhiTranslate="blogApp.skill.detail.title">Skill</span> {{ skill.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="blogApp.skill.name">Name</span></dt>
+                <dd>
+                    <span>{{ skill.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.skill.category">Category</span></dt>
+                <dd>
+                    <div *ngIf="skill.categoryId">
+                        <a [routerLink]="['/category-my-suffix', skill.categoryId, 'view']">{{ skill.categoryId }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="blogApp.skill.subCategory">Sub Category</span></dt>
+                <dd>
+                    <div *ngIf="skill.subCategoryId">
+                        <a [routerLink]="['/sub-category-my-suffix', skill.subCategoryId, 'view']">{{ skill.subCategoryId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/skill-my-suffix', skill.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
