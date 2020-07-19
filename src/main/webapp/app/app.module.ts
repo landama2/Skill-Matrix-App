@@ -6,6 +6,7 @@ import { BlogSharedModule } from 'app/shared/shared.module';
 import { BlogCoreModule } from 'app/core/core.module';
 import { BlogAppRoutingModule } from './app-routing.module';
 import { BlogHomeModule } from './home/home.module';
+import { BlogSkillsModule } from './skills/skills.module';
 import { BlogEntityModule } from './entities/entity.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { MainComponent } from './layouts/main/main.component';
@@ -21,6 +22,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     BlogSharedModule,
     BlogCoreModule,
     BlogHomeModule,
+    BlogSkillsModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     BlogEntityModule,
     BlogAppRoutingModule
