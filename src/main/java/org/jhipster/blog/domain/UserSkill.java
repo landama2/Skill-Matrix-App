@@ -18,7 +18,7 @@ import java.time.Instant;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class UserSkill implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
@@ -35,6 +35,11 @@ public class UserSkill implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("userSkills")
     private SkillLevel skillLevel;
+
+    @ManyToOne
+//    @JoinColumn(name = "SKILL_ID")//probably useless
+    @JsonIgnoreProperties("userSkills")
+    private Skill skill;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -80,9 +85,23 @@ public class UserSkill implements Serializable {
         return this;
     }
 
+    public UserSkill skill(Skill skill) {
+        this.skill = skill;
+        return this;
+    }
+
     public void setSkillLevel(SkillLevel skillLevel) {
         this.skillLevel = skillLevel;
     }
+
+    public Skill getSkill() {
+        return skill;
+    }
+//
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

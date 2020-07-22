@@ -8,16 +8,17 @@ import java.util.Objects;
  * A DTO for the {@link org.jhipster.blog.domain.UserSkill} entity.
  */
 public class UserSkillDTO implements Serializable {
-    
+
     private Long id;
 
     private Instant changedAt;
 
-
     private Long userId;
 
     private Long skillLevelId;
-    
+
+    private Long skillId;
+
     public Long getId() {
         return id;
     }
@@ -50,6 +51,14 @@ public class UserSkillDTO implements Serializable {
         this.skillLevelId = skillLevelId;
     }
 
+    public Long getSkillId() {
+        return skillId;
+    }
+
+    public void setSkillId(Long skillId) {
+        this.skillId = skillId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,6 +87,7 @@ public class UserSkillDTO implements Serializable {
             ", changedAt='" + getChangedAt() + "'" +
             ", userId=" + getUserId() +
             ", skillLevelId=" + getSkillLevelId() +
+            ", skillsId=" + getSkillId() +
             "}";
     }
 }

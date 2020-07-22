@@ -147,8 +147,8 @@ jhipster:
     from: blog@localhost
   swagger:
     default-include-pattern: /api/.*
-    title: blog API
-    description: blog API documentation
+    title: Skill Matrix API
+    description: Skill Matrix API documentation
     version: 0.0.1
     terms-of-service-url:
     contact-name:

@@ -13,13 +13,13 @@ import org.mapstruct.*;
 public interface CCUserMapper extends EntityMapper<CCUserDTO, CCUser> {
 
     @Mapping(source = "userRole.id", target = "userRoleId")
-    @Mapping(source = "skill.id", target = "skillId")
+//    @Mapping(source = "skill.id", target = "skillId")
     CCUserDTO toDto(CCUser cCUser);
 
     @Mapping(target = "userSkills", ignore = true)
     @Mapping(target = "removeUserSkill", ignore = true)
     @Mapping(source = "userRoleId", target = "userRole")
-    @Mapping(source = "skillId", target = "skill")
+//    @Mapping(source = "skillId", target = "skill")
     CCUser toEntity(CCUserDTO cCUserDTO);
 
     default CCUser fromId(Long id) {
