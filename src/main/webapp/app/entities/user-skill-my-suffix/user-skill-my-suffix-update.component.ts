@@ -13,6 +13,8 @@ import { ICCUserMySuffix } from 'app/shared/model/cc-user-my-suffix.model';
 import { CCUserMySuffixService } from 'app/entities/cc-user-my-suffix/cc-user-my-suffix.service';
 import { ISkillLevelMySuffix } from 'app/shared/model/skill-level-my-suffix.model';
 import { SkillLevelMySuffixService } from 'app/entities/skill-level-my-suffix/skill-level-my-suffix.service';
+import { ISkillMySuffix } from 'app/shared/model/skill-my-suffix.model';
+import { SkillMySuffixService } from 'app/entities/skill-my-suffix/skill-my-suffix.service';
 
 type SelectableEntity = ICCUserMySuffix | ISkillLevelMySuffix;
 
@@ -24,18 +26,21 @@ export class UserSkillMySuffixUpdateComponent implements OnInit {
   isSaving = false;
   ccusers: ICCUserMySuffix[] = [];
   skilllevels: ISkillLevelMySuffix[] = [];
+  skills: ISkillMySuffix[] = [];
 
   editForm = this.fb.group({
     id: [],
     changedAt: [],
     userId: [],
-    skillLevelId: []
+    skillLevelId: [],
+    skillId: []
   });
 
   constructor(
     protected userSkillService: UserSkillMySuffixService,
     protected cCUserService: CCUserMySuffixService,
     protected skillLevelService: SkillLevelMySuffixService,
+    protected skillsService: SkillMySuffixService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -52,6 +57,8 @@ export class UserSkillMySuffixUpdateComponent implements OnInit {
       this.cCUserService.query().subscribe((res: HttpResponse<ICCUserMySuffix[]>) => (this.ccusers = res.body || []));
 
       this.skillLevelService.query().subscribe((res: HttpResponse<ISkillLevelMySuffix[]>) => (this.skilllevels = res.body || []));
+
+      this.skillsService.query().subscribe((res: HttpResponse<ISkillMySuffix[]>) => (this.skills = res.body || []));
     });
   }
 
@@ -60,7 +67,8 @@ export class UserSkillMySuffixUpdateComponent implements OnInit {
       id: userSkill.id,
       changedAt: userSkill.changedAt ? userSkill.changedAt.format(DATE_TIME_FORMAT) : null,
       userId: userSkill.userId,
-      skillLevelId: userSkill.skillLevelId
+      skillLevelId: userSkill.skillLevelId,
+      skillId: userSkill.skillId
     });
   }
 
@@ -84,7 +92,8 @@ export class UserSkillMySuffixUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       changedAt: this.editForm.get(['changedAt'])!.value ? moment(this.editForm.get(['changedAt'])!.value, DATE_TIME_FORMAT) : undefined,
       userId: this.editForm.get(['userId'])!.value,
-      skillLevelId: this.editForm.get(['skillLevelId'])!.value
+      skillLevelId: this.editForm.get(['skillLevelId'])!.value,
+      skillId: this.editForm.get(['skillId'])!.value
     };
   }
 

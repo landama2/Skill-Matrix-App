@@ -26,6 +26,7 @@
                     <th scope="col" ><span jhiTranslate="blogApp.userSkill.changedAt">Changed At</span></th>
                     <th scope="col" ><span jhiTranslate="blogApp.userSkill.user">User</span></th>
                     <th scope="col" ><span jhiTranslate="blogApp.userSkill.skillLevel">Skill Level</span></th>
+                    <th scope="col" ><span jhiTranslate="blogApp.userSkill.skill">Skill</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -41,6 +42,11 @@
                     <td>
                         <div *ngIf="userSkill.skillLevelId">
                             <a [routerLink]="['/skill-level-my-suffix', userSkill.skillLevelId , 'view']" >{{ userSkill.skillLevelId }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="userSkill.skillId">
+                            <a [routerLink]="['/skill-level-my-suffix', userSkill.skillId , 'view']" >{{ userSkill.skillId }}</a>
                         </div>
                     </td>
                     <td class="text-right">
