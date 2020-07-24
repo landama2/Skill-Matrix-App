@@ -59,6 +59,18 @@ public class SkillService {
     }
 
     /**
+     * Get all the skills.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Skill> findAllFull(Pageable pageable) {
+        log.debug("Request to get all Skills");
+        return skillRepository.findAll(pageable);
+    }
+
+    /**
      * Get one skill by id.
      *
      * @param id the id of the entity.

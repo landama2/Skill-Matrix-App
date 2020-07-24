@@ -18,7 +18,8 @@
       },
       "changedAt": "Changed At",
       "user": "User",
-      "skillLevel": "Skill Level"
+      "skillLevel": "Skill Level",
+      "skill": "Skill"
     }
   }
 }

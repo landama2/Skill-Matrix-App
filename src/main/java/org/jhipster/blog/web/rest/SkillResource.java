@@ -1,5 +1,6 @@
 package org.jhipster.blog.web.rest;
 
+import org.jhipster.blog.domain.Skill;
 import org.jhipster.blog.service.SkillService;
 import org.jhipster.blog.web.rest.errors.BadRequestAlertException;
 import org.jhipster.blog.service.dto.SkillDTO;
@@ -93,6 +94,20 @@ public class SkillResource {
     public ResponseEntity<List<SkillDTO>> getAllSkills(Pageable pageable) {
         log.debug("REST request to get a page of Skills");
         Page<SkillDTO> page = skillService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /skills} : get all the skills.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of skills in body.
+     */
+    @GetMapping("/skills/full")
+    public ResponseEntity<List<Skill>> getAllSkillsFull(Pageable pageable) {
+        log.debug("REST request to get a page of Skills");
+        Page<Skill> page = skillService.findAllFull(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
