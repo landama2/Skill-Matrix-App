@@ -87,7 +87,7 @@ public class UserSkillDTO implements Serializable {
             ", changedAt='" + getChangedAt() + "'" +
             ", userId=" + getUserId() +
             ", skillLevelId=" + getSkillLevelId() +
-            ", skillsId=" + getSkillId() +
+            ", skillId=" + getSkillId() +
             "}";
     }
 }

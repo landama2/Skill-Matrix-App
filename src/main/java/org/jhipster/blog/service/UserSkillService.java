@@ -1,12 +1,13 @@
 package org.jhipster.blog.service;
 
 import org.jhipster.blog.domain.UserSkill;
+import org.jhipster.blog.repository.UserRepository;
 import org.jhipster.blog.repository.UserSkillRepository;
+import org.jhipster.blog.security.SecurityUtils;
 import org.jhipster.blog.service.dto.UserSkillDTO;
 import org.jhipster.blog.service.mapper.UserSkillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +27,13 @@ public class UserSkillService {
 
     private final UserSkillRepository userSkillRepository;
 
+    private final UserRepository userRepository;
+
     private final UserSkillMapper userSkillMapper;
 
-    public UserSkillService(UserSkillRepository userSkillRepository, UserSkillMapper userSkillMapper) {
+    public UserSkillService(UserSkillRepository userSkillRepository, UserRepository userRepository, UserSkillMapper userSkillMapper) {
         this.userSkillRepository = userSkillRepository;
+        this.userRepository = userRepository;
         this.userSkillMapper = userSkillMapper;
     }
 
@@ -41,6 +45,23 @@ public class UserSkillService {
      */
     public UserSkillDTO save(UserSkillDTO userSkillDTO) {
         log.debug("Request to save UserSkill : {}", userSkillDTO);
+        UserSkill userSkill = userSkillMapper.toEntity(userSkillDTO);
+        userSkill = userSkillRepository.save(userSkill);
+        return userSkillMapper.toDto(userSkill);
+    }
+
+    /**
+     * Save a userSkill.
+     *
+     * @param userSkillDTO the entity to save.
+     * @return the persisted entity.
+     */
+    public UserSkillDTO saveForCurrentUser(UserSkillDTO userSkillDTO) {
+        log.debug("Request to save UserSkill : {}", userSkillDTO);
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new RuntimeException("Current user login not found"));
+        //TODO uncomment this
+//        Optional<User> optionalUser = userRepository.findOneByLogin(userLogin);
+//        userSkillDTO.setUserId(optionalUser.get().getId());
         UserSkill userSkill = userSkillMapper.toEntity(userSkillDTO);
         userSkill = userSkillRepository.save(userSkill);
         return userSkillMapper.toDto(userSkill);
@@ -81,4 +102,6 @@ public class UserSkillService {
         log.debug("Request to delete UserSkill : {}", id);
         userSkillRepository.deleteById(id);
     }
+
+
 }

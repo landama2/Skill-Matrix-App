@@ -1,13 +1,6 @@
 <div class="row">
-<!--    <div class="col-md-3">-->
-<!--        <span class="hipster img-fluid rounded"></span>-->
-<!--    </div>-->
 
-<!--    <div class="col-md-9">-->
-<!--        <h1 class="display-4" jhiTranslate="skills.title">Welcome, Java Hipster!</h1>-->
-
-<!--        <p class="lead" jhiTranslate="skills.subtitle">This is your subtitle nontranslated</p>-->
-<!--    </div>-->
+<!--    <form [formGroup]="skillsForm" (ngSubmit)="onSubmit()">-->
 
     <h2 id="page-heading">
         <span jhiTranslate="blogApp.skill.home.title">Skills</span>
@@ -32,6 +25,7 @@
 <!--        <span jhiTranslate="blogApp.skill.home.notFound">No skills found2</span>-->
 <!--    </div>-->
 
+
     <div class="table-responsive" id="entities"
          *ngIf="skills?.length > 0"
     >
@@ -47,8 +41,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let skill of skills ;trackBy: trackId">
+<!--            <tr *ngFor="let skill of skills ;trackBy: trackId; let skillFormGroup of skillsForm" [formGroup]="skillFormGroup">-->
+            <tr *ngFor="let skill of skills ;trackBy: trackId;">
+<!--            <tr *ngFor="let skillForm of skillsForm;">-->
+<!--                <div [formGroup]="skillForm">-->
+<!--                <td><a [routerLink]="['/skill-my-suffix', skill.id, 'view']" formControlName="skillId">{{ skill.id }}</a></td>-->
                 <td><a [routerLink]="['/skill-my-suffix', skill.id, 'view']">{{ skill.id }}</a></td>
+<!--                    <td> <input type="text" formControlName="skillId"></td>-->
                 <td>{{ skill.name }}</td>
                 <td>
                     <div *ngIf="skill.category">
@@ -56,31 +55,18 @@
                     </div>
                 </td>
                 <td>
-<!--                    <div *ngIf="skill.category">-->
-<!--                        <a [routerLink]="['/category-my-suffix', skill.category , 'view']" >{{ skill.category }}</a>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <div *ngIf="skill.category">-->
-<!--                        <a [routerLink]="['/category-my-suffix', skill.category , 'view']" >abc ez as 123</a>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <div>-->
-<!--                        <a [routerLink]="['/category-my-suffix', skill.category , 'view']" >wtf</a>-->
-<!--                    </div>-->
-<!--                </td>-->
-                <td>
                     <div *ngIf="skill.subCategory">
                         <a [routerLink]="['/sub-category-my-suffix', skill.subCategory.id , 'view']" >{{ skill.subCategory.name }}</a>
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
-                        <label class="form-control-label" jhiTranslate="skills.skillLevel" for="field_skill_level_{{skill.id}}">SkillLevel</label>
-                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" formControlName="skillLevelId">
+<!--                        <label class="form-control-label" jhiTranslate="skills.skillLevel" for="field_skill_level_{{skill.id}}">SkillLevel</label>-->
+<!--                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" formControlName="skillLevelId" [(ngModel)]="skill.skillLevel">-->
+                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" [(ngModel)]="skill.skillLevel">
+<!--                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" formControlName="skillLevelId">-->
                             <option [ngValue]="null"></option>
-                            <option [ngValue]="skillLevelOption.id" *ngFor="let skillLevelOption of skillLevels; trackBy: trackById">{{ skillLevelOption.name }}</option>
+                            <option [ngValue]="skillLevelOption" *ngFor="let skillLevelOption of skillLevels; trackBy: trackById">{{ skillLevelOption.name }}</option>
                         </select>
                     </div>
                 </td>
@@ -107,20 +93,59 @@
 <!--                        </button>-->
                     </div>
                 </td>
+<!--                </div>-->
             </tr>
             </tbody>
         </table>
     </div>
+<!--    </form>-->
+
+
+<!--    <jhi-app-addformgroups></jhi-app-addformgroups>-->
 
     <div *ngIf="skills?.length > 0" style="width: 100%">
         <div class="row justify-content-center">
-            <button id="save-my-skills" class="btn float-right jh-create-entity create-skill-my-suffix" [routerLink]="['/skill-my-suffix/new']"
+            <button id="save-my-skills" (click)="onSubmit()" class="btn float-right jh-create-entity create-skill-my-suffix"
             [ngClass]="skills ? 'btn-primary' : 'btn-danger disabled'">
                 <fa-icon icon="save"></fa-icon>
                 <span  jhiTranslate="skills.saveSkills">
             Save skills
             </span>
             </button>
+        </div>
+        <div *ngIf="userSkills?.length > 0">
+            <table>
+            <tr *ngFor="let us of userSkills ;trackBy: trackId;">
+                <!--            <tr *ngFor="let skillForm of skillsForm;">-->
+                <!--                <div [formGroup]="skillForm">-->
+                <!--                <td><a [routerLink]="['/skill-my-suffix', skill.id, 'view']" formControlName="skillId">{{ skill.id }}</a></td>-->
+                <td><a [routerLink]="['/skill-my-suffix', us.id, 'view']">a{{ us.userId }}</a></td>
+                <!--                    <td> <input type="text" formControlName="skillId"></td>-->
+                <td>b{{ us.skillId }}</td>
+                <td>
+                    <div *ngIf="us.skillId">
+                        <a [routerLink]="['/category-my-suffix', us.skillId , 'view']" >b{{ us.skillId }}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="us.skillLevel">
+                        <a [routerLink]="['/category-my-suffix', us.skillLevel.name , 'view']" >c{{ us.skillLevel.name }}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="us.skillLevel">
+                        <a [routerLink]="['/category-my-suffix', us.skillLevel.id , 'view']" >d{{ us.skillLevel.id }}</a>
+                    </div>
+                </td>
+
+                <td>
+                    <div *ngIf="us.skillLevelId">
+                        <a [routerLink]="['/category-my-suffix', us.skillLevelId , 'view']" >e{{ us.skillLevelId }}</a>
+                    </div>
+                </td>
+            </tr>
+            </table>
+
         </div>
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>

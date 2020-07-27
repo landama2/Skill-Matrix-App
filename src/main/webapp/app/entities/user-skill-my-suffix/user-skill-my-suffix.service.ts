@@ -24,6 +24,13 @@ export class UserSkillMySuffixService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  createForCurrentUser(userSkill: IUserSkillMySuffix): Observable<EntityResponseType> {
+    const copy = this.convertDateFromClient(userSkill);
+    return this.http
+      .post<IUserSkillMySuffix>(`${this.resourceUrl}/current-user`, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   update(userSkill: IUserSkillMySuffix): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(userSkill);
     return this.http

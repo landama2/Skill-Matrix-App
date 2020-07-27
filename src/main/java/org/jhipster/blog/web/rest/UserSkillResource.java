@@ -113,4 +113,23 @@ public class UserSkillResource {
         userSkillService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code POST  /user-skills/current-user} : Create a new userSkill.
+     *
+     * @param userSkillDTO the userSkillDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new userSkillDTO, or with status {@code 400 (Bad Request)} if the userSkill has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/user-skills/current-user")
+    public ResponseEntity<UserSkillDTO> createUserSkillCurrentUser(@RequestBody UserSkillDTO userSkillDTO) throws URISyntaxException {
+        log.debug("REST request to save UserSkill : {}", userSkillDTO);
+        if (userSkillDTO.getId() != null) {
+            throw new BadRequestAlertException("A new userSkill cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        UserSkillDTO result = userSkillService.saveForCurrentUser(userSkillDTO);
+        return ResponseEntity.created(new URI("/api/user-skills/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
 }

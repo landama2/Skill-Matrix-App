@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
@@ -10,6 +10,11 @@ import { SkillsService } from 'app/skills/skills.service';
 import { SkillLevelMySuffixService } from 'app/entities/skill-level-my-suffix/skill-level-my-suffix.service';
 import { ISkill } from 'app/skills/skills.model';
 import { ISkillLevelMySuffix } from 'app/shared/model/skill-level-my-suffix.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import * as moment from 'moment';
+import { IUserSkillMySuffix, UserSkillMySuffix } from 'app/shared/model/user-skill-my-suffix.model';
+import { logger } from 'codelyzer/util/logger';
+import { UserSkillMySuffixService } from 'app/entities/user-skill-my-suffix/user-skill-my-suffix.service';
 
 type SelectableEntity = ISkillLevelMySuffix;
 
@@ -17,12 +22,10 @@ type SelectableEntity = ISkillLevelMySuffix;
   selector: 'jhi-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['skills.scss']
-  // ,
-  // providers: [SkillsService]
 })
 export class SkillsComponent implements OnInit, OnDestroy {
-  // skills?: ISkillMySuffix[];
   skills?: ISkill[];
+  userSkills?: IUserSkillMySuffix[];
   skillLevels?: ISkillLevelMySuffix[];
   eventSubscriber?: Subscription;
   totalItems = 0;
@@ -32,13 +35,17 @@ export class SkillsComponent implements OnInit, OnDestroy {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  public skillsForm!: FormGroup;
+
   constructor(
     protected skillService: SkillsService,
     protected skillLevelMySuffixService: SkillLevelMySuffixService,
+    protected userSkillService: UserSkillMySuffixService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -49,8 +56,52 @@ export class SkillsComponent implements OnInit, OnDestroy {
     this.registerChangeInSkills();
   }
 
+  onSubmit(): void {
+    // console.log(this.usersForm.value);
+    this.userSkills = [];
+    this.skills?.forEach(value => {
+      const userSkillMySuffix = this.createFromTableRow(value);
+      logger.info('Adding user skill ...' + userSkillMySuffix.skillId);
+
+      this.userSkills!.push(userSkillMySuffix); //TODO remove this array as its for check only
+
+      this.subscribeToSaveResponse(this.userSkillService.createForCurrentUser(userSkillMySuffix));
+    });
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserSkillMySuffix>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(): void {}
+
+  protected onSaveError(): void {}
+
+  private createFromTableRow(skillRow: ISkill): IUserSkillMySuffix {
+    const today = moment().startOf('day');
+    return {
+      ...new UserSkillMySuffix(),
+      changedAt: today,
+      userId: 2701,
+      skillLevelId: skillRow.skillLevel?.id,
+      skillId: skillRow.id
+    };
+  }
+
   loadPage(page?: number): void {
     const pageToLoad = 1;
+
+    this.skillLevelMySuffixService
+      .query({
+        sort: this.sort()
+      })
+      .subscribe(
+        (res: HttpResponse<ISkillLevelMySuffix[]>) => this.onSuccessSkillLevel(res.body, res.headers),
+        () => this.onError()
+      );
 
     this.skillService
       .query({
@@ -60,15 +111,6 @@ export class SkillsComponent implements OnInit, OnDestroy {
       })
       .subscribe(
         (res: HttpResponse<ISkill[]>) => this.onSuccess(res.body, res.headers, pageToLoad),
-        () => this.onError()
-      );
-
-    this.skillLevelMySuffixService
-      .query({
-        sort: this.sort()
-      })
-      .subscribe(
-        (res: HttpResponse<ISkillLevelMySuffix[]>) => this.onSuccessSkillLevel(res.body, res.headers),
         () => this.onError()
       );
   }
@@ -113,26 +155,4 @@ export class SkillsComponent implements OnInit, OnDestroy {
   trackById(index: number, item: SelectableEntity): any {
     return item.id;
   }
-
-  //TODO make this work for this page
-
-  // save(): void {
-  //   this.isSaving = true;
-  //   const skill = this.createFromForm();
-  //   if (skill.id !== undefined) {
-  //     this.subscribeToSaveResponse(this.skillService.update(skill));
-  //   } else {
-  //     this.subscribeToSaveResponse(this.skillService.create(skill));
-  //   }
-  // }
-  //
-  // private createFromForm(): ISkillMySuffix {
-  //   return {
-  //     ...new SkillMySuffix(),
-  //     id: this.editForm.get(['id'])!.value,
-  //     name: this.editForm.get(['name'])!.value,
-  //     categoryId: this.editForm.get(['categoryId'])!.value,
-  //     subCategoryId: this.editForm.get(['subCategoryId'])!.value
-  //   };
-  // }
 }
