@@ -2,6 +2,8 @@
 
 This application was generated using JHipster 6.8.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.8.0](https://www.jhipster.tech/documentation-archive/v6.8.0).
 
+[![Build Status](https://github.com/landama2/Skill-Matrix-App/workflows/CI/badge.svg)](https://github.com/landama2/Skill-Matrix-App/actions)
+
 ## Development
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
