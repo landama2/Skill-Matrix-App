@@ -95,6 +95,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<UserSkill> userSkills = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -198,6 +202,31 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<UserSkill> getUserSkills() {
+        return userSkills;
+    }
+
+    public User userSkills(Set<UserSkill> userSkills) {
+        this.userSkills = userSkills;
+        return this;
+    }
+
+    public User addUserSkill(UserSkill userSkill) {
+        this.userSkills.add(userSkill);
+        userSkill.setUser(this);
+        return this;
+    }
+
+    public User removeUserSkill(UserSkill userSkill) {
+        this.userSkills.remove(userSkill);
+        userSkill.setUser(null);
+        return this;
+    }
+
+    public void setUserSkills(Set<UserSkill> userSkills) {
+        this.userSkills = userSkills;
     }
 
     @Override

@@ -22,7 +22,7 @@
                     <label class="form-control-label" jhiTranslate="blogApp.userSkill.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" formControlName="userId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="cCUserOption.id" *ngFor="let cCUserOption of ccusers; trackBy: trackById">{{ cCUserOption.id }}</option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
                     </select>
                 </div>
 

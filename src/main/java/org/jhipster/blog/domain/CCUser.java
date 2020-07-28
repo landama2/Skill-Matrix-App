@@ -33,10 +33,6 @@ public class CCUser implements Serializable {
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @OneToMany(mappedBy = "user")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<UserSkill> userSkills = new HashSet<>();
-
     @ManyToOne
     @JsonIgnoreProperties("cCUsers")
     private UserRole userRole;
@@ -78,31 +74,6 @@ public class CCUser implements Serializable {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Set<UserSkill> getUserSkills() {
-        return userSkills;
-    }
-
-    public CCUser userSkills(Set<UserSkill> userSkills) {
-        this.userSkills = userSkills;
-        return this;
-    }
-
-    public CCUser addUserSkill(UserSkill userSkill) {
-        this.userSkills.add(userSkill);
-        userSkill.setUser(this);
-        return this;
-    }
-
-    public CCUser removeUserSkill(UserSkill userSkill) {
-        this.userSkills.remove(userSkill);
-        userSkill.setUser(null);
-        return this;
-    }
-
-    public void setUserSkills(Set<UserSkill> userSkills) {
-        this.userSkills = userSkills;
     }
 
     public UserRole getUserRole() {

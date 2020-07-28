@@ -36,7 +36,7 @@
                     <td>{{ userSkill.changedAt | date:'medium' }}</td>
                     <td>
                         <div *ngIf="userSkill.userId">
-                            <a [routerLink]="['/cc-user-my-suffix', userSkill.userId , 'view']" >{{ userSkill.userId }}</a>
+                            <span>{{ userSkill.userId }}</span>
                         </div>
                     </td>
                     <td>

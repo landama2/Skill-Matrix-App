@@ -15,7 +15,7 @@
                 <dt><span jhiTranslate="blogApp.userSkill.user">User</span></dt>
                 <dd>
                     <div *ngIf="userSkill.userId">
-                        <a [routerLink]="['/cc-user-my-suffix', userSkill.userId, 'view']">{{ userSkill.userId }}</a>
+                        <span>{{ userSkill.userId }}</span>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="blogApp.userSkill.skillLevel">Skill Level</span></dt>

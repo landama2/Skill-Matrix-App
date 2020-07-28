@@ -1,5 +1,6 @@
 package org.jhipster.blog.service;
 
+import org.jhipster.blog.domain.User;
 import org.jhipster.blog.domain.UserSkill;
 import org.jhipster.blog.repository.UserRepository;
 import org.jhipster.blog.repository.UserSkillRepository;
@@ -51,20 +52,27 @@ public class UserSkillService {
     }
 
     /**
-     * Save a userSkill.
+     * Save a userSkill for currently logged in user.
      *
      * @param userSkillDTO the entity to save.
      * @return the persisted entity.
      */
     public UserSkillDTO saveForCurrentUser(UserSkillDTO userSkillDTO) {
         log.debug("Request to save UserSkill : {}", userSkillDTO);
-        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new RuntimeException("Current user login not found"));
-        //TODO uncomment this
-//        Optional<User> optionalUser = userRepository.findOneByLogin(userLogin);
-//        userSkillDTO.setUserId(optionalUser.get().getId());
+        Long currentUserId = getCurrentUserId();
+        userSkillDTO.setUserId(currentUserId);
         UserSkill userSkill = userSkillMapper.toEntity(userSkillDTO);
         userSkill = userSkillRepository.save(userSkill);
         return userSkillMapper.toDto(userSkill);
+    }
+
+    private Long getCurrentUserId() {
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new RuntimeException("Current user login not found"));
+        Optional<User> optionalUser = userRepository.findOneByLogin(userLogin);
+        if (!optionalUser.isPresent()) {
+            throw new IllegalArgumentException("User with login " + userLogin + " not found");
+        }
+        return optionalUser.get().getId();
     }
 
     /**

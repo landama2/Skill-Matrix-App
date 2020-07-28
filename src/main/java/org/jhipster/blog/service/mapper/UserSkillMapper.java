@@ -9,7 +9,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link UserSkill} and its DTO {@link UserSkillDTO}.
  */
-@Mapper(componentModel = "spring", uses = {CCUserMapper.class, SkillLevelMapper.class, SkillMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, SkillLevelMapper.class, SkillMapper.class})
 public interface UserSkillMapper extends EntityMapper<UserSkillDTO, UserSkill> {
 
     @Mapping(source = "user.id", target = "userId")

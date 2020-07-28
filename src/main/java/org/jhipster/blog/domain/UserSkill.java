@@ -30,7 +30,7 @@ public class UserSkill implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("userSkills")
-    private CCUser user;
+    private User user;
 
     @ManyToOne
     @JsonIgnoreProperties("userSkills")
@@ -63,17 +63,17 @@ public class UserSkill implements Serializable {
         this.changedAt = changedAt;
     }
 
-    public CCUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public UserSkill user(CCUser cCUser) {
-        this.user = cCUser;
+    public UserSkill user(User user) {
+        this.user = user;
         return this;
     }
 
-    public void setUser(CCUser cCUser) {
-        this.user = cCUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public SkillLevel getSkillLevel() {

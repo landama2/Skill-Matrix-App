@@ -10,11 +10,12 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { IUserSkillMySuffix, UserSkillMySuffix } from 'app/shared/model/user-skill-my-suffix.model';
 import { UserSkillMySuffixService } from './user-skill-my-suffix.service';
 import { ICCUserMySuffix } from 'app/shared/model/cc-user-my-suffix.model';
-import { CCUserMySuffixService } from 'app/entities/cc-user-my-suffix/cc-user-my-suffix.service';
 import { ISkillLevelMySuffix } from 'app/shared/model/skill-level-my-suffix.model';
 import { SkillLevelMySuffixService } from 'app/entities/skill-level-my-suffix/skill-level-my-suffix.service';
 import { ISkillMySuffix } from 'app/shared/model/skill-my-suffix.model';
 import { SkillMySuffixService } from 'app/entities/skill-my-suffix/skill-my-suffix.service';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
 
 type SelectableEntity = ICCUserMySuffix | ISkillLevelMySuffix;
 
@@ -24,7 +25,7 @@ type SelectableEntity = ICCUserMySuffix | ISkillLevelMySuffix;
 })
 export class UserSkillMySuffixUpdateComponent implements OnInit {
   isSaving = false;
-  ccusers: ICCUserMySuffix[] = [];
+  users: IUser[] = [];
   skilllevels: ISkillLevelMySuffix[] = [];
   skills: ISkillMySuffix[] = [];
 
@@ -38,7 +39,7 @@ export class UserSkillMySuffixUpdateComponent implements OnInit {
 
   constructor(
     protected userSkillService: UserSkillMySuffixService,
-    protected cCUserService: CCUserMySuffixService,
+    protected userService: UserService,
     protected skillLevelService: SkillLevelMySuffixService,
     protected skillsService: SkillMySuffixService,
     protected activatedRoute: ActivatedRoute,
@@ -54,7 +55,7 @@ export class UserSkillMySuffixUpdateComponent implements OnInit {
 
       this.updateForm(userSkill);
 
-      this.cCUserService.query().subscribe((res: HttpResponse<ICCUserMySuffix[]>) => (this.ccusers = res.body || []));
+      this.userService.query().subscribe((res: HttpResponse<ICCUserMySuffix[]>) => (this.users = res.body || []));
 
       this.skillLevelService.query().subscribe((res: HttpResponse<ISkillLevelMySuffix[]>) => (this.skilllevels = res.body || []));
 
