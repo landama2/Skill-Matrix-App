@@ -1,0 +1,189 @@
+<div class="row">
+
+<!--    <form [formGroup]="skillsForm" (ngSubmit)="onSubmit()">-->
+
+    <h2 id="page-heading">
+        <span jhiTranslate="blogApp.skill.home.title">Skills</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-skill-my-suffix" [routerLink]="['/skill-my-suffix/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="blogApp.skill.home.createLabel">
+            Create a new Skill
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="skills?.length === 0 || skills == null">
+        <span jhiTranslate="blogApp.skill.home.notFound">No skills found</span>
+    </div>
+
+<!--    <div class="alert alert-warning" id="no-result2" *ngIf="skills == null">-->
+<!--        <span jhiTranslate="blogApp.skill.home.notFound">No skills found2</span>-->
+<!--    </div>-->
+
+
+    <div class="table-responsive" id="entities"
+         *ngIf="skills?.length > 0"
+    >
+        <div>
+            <form class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Assignee</mat-label>
+                    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto"/>
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+        </div>
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                <th scope="col"  jhiSortBy="name"><span jhiTranslate="blogApp.skill.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                <th scope="col"  jhiSortBy="categoryId"><span jhiTranslate="blogApp.skill.category">Category</span> <fa-icon icon="sort"></fa-icon></th>
+                <th scope="col"  jhiSortBy="subCategoryId"><span jhiTranslate="blogApp.skill.subCategory">Sub Category</span> <fa-icon icon="sort"></fa-icon></th>
+                <th scope="col"  jhiSortBy="subCategoryId"><span jhiTranslate="skills.skillLevel">Skill Level</span> <fa-icon icon="sort"></fa-icon></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+<!--            <tr *ngFor="let skill of skills ;trackBy: trackId; let skillFormGroup of skillsForm" [formGroup]="skillFormGroup">-->
+            <tr *ngFor="let skill of skills ;trackBy: trackId;">
+<!--            <tr *ngFor="let skillForm of skillsForm;">-->
+<!--                <div [formGroup]="skillForm">-->
+<!--                <td><a [routerLink]="['/skill-my-suffix', skill.id, 'view']" formControlName="skillId">{{ skill.id }}</a></td>-->
+                <td><a [routerLink]="['/skill-my-suffix', skill.id, 'view']">{{ skill.id }}</a></td>
+<!--                    <td> <input type="text" formControlName="skillId"></td>-->
+                <td>{{ skill.name }}</td>
+                <td>
+                    <div *ngIf="skill.category">
+                        <a [routerLink]="['/category-my-suffix', skill.category?.id , 'view']" >{{ skill.category?.name }}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="skill.subCategory">
+                        <a [routerLink]="['/sub-category-my-suffix', skill.subCategory.id , 'view']" >{{ skill.subCategory.name }}</a>
+                    </div>
+                </td>
+                <td>
+
+<!--                    <form class="example-form">-->
+<!--                        <mat-form-field class="example-full-width">-->
+<!--                            <input type="text"-->
+<!--                                   placeholder="Pick one"-->
+<!--                                   aria-label="Number"-->
+<!--                                   matInput-->
+<!--                                   [formControl]="myControl"-->
+<!--                                   [matAutocomplete]="auto">-->
+<!--                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">>-->
+<!--                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">-->
+<!--                                    {{option}}-->
+<!--                                </mat-option>-->
+<!--                            </mat-autocomplete>-->
+<!--                        </mat-form-field>-->
+<!--                    </form>-->
+                    <div class="form-group">
+<!--                        <label class="form-control-label" jhiTranslate="skills.skillLevel" for="field_skill_level_{{skill.id}}">SkillLevel</label>-->
+<!--                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" formControlName="skillLevelId" [(ngModel)]="skill.skillLevel">-->
+<!--                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" [(ngModel)]="skill.skillLevel?.name" [value]="skill.skillLevel?.name">-->
+<!--                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" [(ngModel)]="skill.skillLevel?.name" [value]="userSkills[0].skillLevelId">-->
+                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" [(ngModel)]="skill.skillLevel">
+<!--                        <select class="form-control" id="field_skill_level_{{skill.id}}" name="skillLevel" formControlName="skillLevelId">-->
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="skillLevelOption" *ngFor="let skillLevelOption of skillLevels; trackBy: trackById">{{ skillLevelOption.name }}</option>
+                        </select>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/skill-my-suffix', skill.id, 'view']"
+                                class="btn btn-info btn-sm">
+                            <fa-icon icon="eye"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+
+                        <button type="submit"
+                                [routerLink]="['/skill-my-suffix', skill.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon icon="pencil-alt"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+
+<!--                        <button type="submit" (click)="delete(skill)"-->
+<!--                                class="btn btn-danger btn-sm">-->
+<!--                            <fa-icon icon="times"></fa-icon>-->
+<!--                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>-->
+<!--                        </button>-->
+                    </div>
+                </td>
+<!--                </div>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<!--    </form>-->
+
+
+<!--    <jhi-app-addformgroups></jhi-app-addformgroups>-->
+
+    <div *ngIf="skills?.length > 0" style="width: 100%">
+        <div class="row justify-content-center">
+            <button id="save-my-skills" (click)="onSubmit()" class="btn float-right jh-create-entity create-skill-my-suffix"
+            [ngClass]="skills ? 'btn-primary' : 'btn-danger disabled'">
+                <fa-icon icon="save"></fa-icon>
+                <span  jhiTranslate="skills.saveSkills">
+            Save skills
+            </span>
+            </button>
+        </div>
+        <div *ngIf="userSkills?.length > 0">
+            <table>
+            <tr *ngFor="let us of userSkills ;trackBy: trackId;">
+                <!--            <tr *ngFor="let skillForm of skillsForm;">-->
+                <!--                <div [formGroup]="skillForm">-->
+                <!--                <td><a [routerLink]="['/skill-my-suffix', skill.id, 'view']" formControlName="skillId">{{ skill.id }}</a></td>-->
+                <td><a [routerLink]="['/skill-my-suffix', us.id, 'view']">a{{ us.userId }}</a></td>
+                <!--                    <td> <input type="text" formControlName="skillId"></td>-->
+                <td>b{{ us.skillId }}</td>
+                <td>
+                    <div *ngIf="us.skillId">
+                        <a [routerLink]="['/category-my-suffix', us.skillId , 'view']" >b{{ us.skillId }}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="us.skillLevel">
+                        <a [routerLink]="['/category-my-suffix', us.skillLevel.name , 'view']" >c{{ us.skillLevel.name }}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="us.skillLevel">
+                        <a [routerLink]="['/category-my-suffix', us.skillLevel.id , 'view']" >d{{ us.skillLevel.id }}</a>
+                    </div>
+                </td>
+
+                <td>
+                    <div *ngIf="us.skillLevelId">
+                        <a [routerLink]="['/category-my-suffix', us.skillLevelId , 'view']" >e{{ us.skillLevelId }}</a>
+                    </div>
+                </td>
+            </tr>
+            </table>
+
+        </div>
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>
