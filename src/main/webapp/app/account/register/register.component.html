@@ -61,6 +61,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" for="name" jhiTranslate="global.form.name.label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="{{ 'global.form.name.placeholder' | translate }}"
+                           formControlName="name" #name>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="surname" jhiTranslate="global.form.surname.label">Surname</label>
+                    <input type="text" class="form-control" id="surname" name="name" placeholder="{{ 'global.form.surname.placeholder' | translate }}"
+                           formControlName="surname" #surname>
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" for="email" jhiTranslate="global.form.email.label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="{{ 'global.form.email.placeholder' | translate }}"
                              formControlName="email">

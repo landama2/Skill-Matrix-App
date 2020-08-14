@@ -17,8 +17,8 @@
         "userSkillMySuffix": "User Skill",
         "skillLevelMySuffix": "Skill Level",
         "skillMySuffix": "Skill",
-        "categoryMySuffix": "Category",
-        "subCategoryMySuffix": "Sub Category",
+        "categoryMySuffix": "Categories",
+        "subCategoryMySuffix": "Subcategories",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -48,6 +48,10 @@
     "form": {
       "username.label": "Username",
       "username.placeholder": "Your username",
+      "name.label": "First name",
+      "name.placeholder": "Your first name",
+      "surname.label": "Surname",
+      "surname.placeholder": "Your surname",
       "currentpassword.label": "Current password",
       "currentpassword.placeholder": "Current password",
       "newpassword.label": "New password",

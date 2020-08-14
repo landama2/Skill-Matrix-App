@@ -9,6 +9,16 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entity",
+        "blog": "Blog",
+        "entry": "Entry",
+        "tag": "Tag",
+        "ccUserMySuffix": "CC Uživatel",
+        "userRoleMySuffix": "Uživatelské role",
+        "userSkillMySuffix": "Znalosti uživatelů",
+        "skillLevelMySuffix": "Úroveň znalosti",
+        "skillMySuffix": "Znalosti",
+        "categoryMySuffix": "Kategorie",
+        "subCategoryMySuffix": "Podkategorie",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -38,6 +48,10 @@
     "form": {
       "username.label": "Uživatelské jméno",
       "username.placeholder": "Vaše uživatelské jméno",
+      "name.label": "Křestní jméno",
+      "name.placeholder": "Vaše křestní jméno",
+      "surname.label": "Příjmení",
+      "surname.placeholder": "Vaše příjmení",
       "currentpassword.label": "Současné heslo",
       "currentpassword.placeholder": "Současné heslo",
       "newpassword.label": "Nové heslo",

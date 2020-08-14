@@ -21,7 +21,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
                 <th scope="col"  jhiSortBy="name"><span jhiTranslate="blogApp.skill.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
                 <th scope="col"  jhiSortBy="categoryId"><span jhiTranslate="blogApp.skill.category">Category</span> <fa-icon icon="sort"></fa-icon></th>
-                <th scope="col"  jhiSortBy="subCategoryId"><span jhiTranslate="blogApp.skill.subCategory">Sub Category</span> <fa-icon icon="sort"></fa-icon></th>
+                <th scope="col"  jhiSortBy="subCategoryId"><span jhiTranslate="blogApp.skill.subCategory">Subcategory</span> <fa-icon icon="sort"></fa-icon></th>
                 <th scope="col"  jhiSortBy="subCategoryId"><span jhiTranslate="skills.skillLevel">Skill Level</span> <fa-icon icon="sort"></fa-icon></th>
                 <th scope="col"></th>
             </tr>
@@ -45,23 +45,6 @@
                             <option [ngValue]="null"></option>
                             <option [ngValue]="skillLevelOption" *ngFor="let skillLevelOption of skillLevels; trackBy: trackById">{{ skillLevelOption.name }}</option>
                         </select>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/skill-my-suffix', skill.id, 'view']"
-                                class="btn btn-info btn-sm">
-                            <fa-icon icon="eye"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-
-                        <button type="submit"
-                                [routerLink]="['/skill-my-suffix', skill.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon icon="pencil-alt"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
                     </div>
                 </td>
             </tr>
