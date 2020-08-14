@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { BlogSharedModule } from 'app/shared/shared.module';
 import { SKILLS_ROUTE } from './skills.route';
 import { SkillsComponent } from './skills.component';
-import { AddformgroupsModule } from 'app/row';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -19,7 +18,6 @@ import { DemoMaterialModule } from 'app/skills/material-module';
   imports: [
     BlogSharedModule,
     RouterModule.forChild([SKILLS_ROUTE]),
-    AddformgroupsModule,
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
