@@ -20,12 +20,32 @@
             <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link" routerLink="/skills" (click)="collapseNavbar()">
                     <span>
-                        <fa-icon icon="atlas"></fa-icon>
-                        <span jhiTranslate="global.menu.skills">Skills</span>
+                        <fa-icon icon="air-freshener"></fa-icon>
+                        <span jhiTranslate="global.menu.skills">My skills</span>
                     </span>
                 </a>
             </li>
-            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" routerLink="/skills-search" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="acorn"></fa-icon>
+                        <span jhiTranslate="global.menu.skills-search">Skills search</span>
+                    </span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link" routerLink="category-my-suffix" (click)="collapseNavbar()">
+                    <fa-icon icon="table"></fa-icon>
+                    <span jhiTranslate="global.menu.entities.categoryMySuffix">Categories</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link" routerLink="sub-category-my-suffix" (click)="collapseNavbar()">
+                    <fa-icon icon="address-book" ></fa-icon>
+                    <span jhiTranslate="global.menu.entities.subCategoryMySuffix">Subcategoriesx</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <fa-icon icon="th-list"></fa-icon>

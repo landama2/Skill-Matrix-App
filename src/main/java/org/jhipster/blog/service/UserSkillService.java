@@ -89,6 +89,17 @@ public class UserSkillService {
     }
 
     /**
+     * Get all the userSkills containing a skill.
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<UserSkill> findAllBySkill(String name) {
+        log.debug("Request to get all UserSkills");
+        return userSkillRepository.findAllBySkill(name);
+    }
+
+    /**
      * Get one userSkill by id.
      *
      * @param id the id of the entity.

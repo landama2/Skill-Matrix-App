@@ -107,7 +107,7 @@ public class SkillResource {
     @GetMapping("/skills/full")
     public ResponseEntity<List<Skill>> getAllSkillsFull(Pageable pageable) {
         log.debug("REST request to get a page of Skills");
-        Page<Skill> page = skillService.findAllFull(pageable);
+        Page<Skill> page = skillService.findAllFullWithUserSkill(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

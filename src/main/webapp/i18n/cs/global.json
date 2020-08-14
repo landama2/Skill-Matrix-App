@@ -4,6 +4,8 @@
     "browsehappy": "Používáte <strong>zastaralý</strong> prohlížeč. Prosím <a href=\"http://browsehappy.com/?locale=en\">aktualizujte svůj prohlížeč</a> pro zlepšení použitelnosti.",
     "menu": {
       "home": "Domů",
+      "skills": "Moje znalosti",
+      "skills-search": "Vyhledávání",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entity",
@@ -135,5 +137,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "Toto je vaše zápatí"
+  "footer": "Copyright © 2020 Marek Landa"
 }

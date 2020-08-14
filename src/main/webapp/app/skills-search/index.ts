@@ -1,2 +1,2 @@
-export * from './skills.component';
+export * from './skills-search.component';
 // needed indeed????

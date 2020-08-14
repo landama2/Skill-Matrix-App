@@ -5,9 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +30,10 @@ public class Skill implements Serializable {
     @OneToMany(mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CCUser> cCUsers = new HashSet<>();
+
+    @OneToMany(mappedBy = "skill", fetch = FetchType.EAGER)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<UserSkill> userSkills = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("skills")
@@ -95,6 +97,19 @@ public class Skill implements Serializable {
     public Skill category(Category category) {
         this.category = category;
         return this;
+    }
+
+    public Skill userSkills(Set<UserSkill> userSkills) {
+        this.userSkills = userSkills;
+        return this;
+    }
+
+    public Set<UserSkill> getUserSkills() {
+        return userSkills;
+    }
+
+    public void setUserSkills(Set<UserSkill> userSkills) {
+        this.userSkills = userSkills;
     }
 
     public void setCategory(Category category) {

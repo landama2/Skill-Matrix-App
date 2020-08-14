@@ -15,6 +15,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { BlogSkillsSearchModule } from 'app/skills-search/skills-search.module';
 
 @NgModule({
   imports: [
@@ -22,12 +23,22 @@ import { ErrorComponent } from './layouts/error/error.component';
     BlogSharedModule,
     BlogCoreModule,
     BlogHomeModule,
-    BlogSkillsModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     BlogEntityModule,
-    BlogAppRoutingModule
+    BlogAppRoutingModule,
+    //landama2
+    BlogSkillsModule,
+    BlogSkillsSearchModule
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent
+    //landama2
+  ],
   bootstrap: [MainComponent]
 })
 export class BlogAppModule {}

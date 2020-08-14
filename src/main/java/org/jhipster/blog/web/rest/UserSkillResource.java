@@ -1,5 +1,6 @@
 package org.jhipster.blog.web.rest;
 
+import org.jhipster.blog.domain.UserSkill;
 import org.jhipster.blog.service.UserSkillService;
 import org.jhipster.blog.web.rest.errors.BadRequestAlertException;
 import org.jhipster.blog.service.dto.UserSkillDTO;
@@ -86,6 +87,17 @@ public class UserSkillResource {
     public List<UserSkillDTO> getAllUserSkills() {
         log.debug("REST request to get all UserSkills");
         return userSkillService.findAll();
+    }
+
+    /**
+     * {@code GET  /user-skills/by-skill} : get the userSkills containing the skill.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userSkills in body.
+     */
+    @GetMapping("/user-skills/by-skill/{name}")
+    public List<UserSkill> getUserSkillsBySkill(@PathVariable String name) {
+        log.debug("REST request to get UserSkills by Skill");
+        return userSkillService.findAllBySkill(name);
     }
 
     /**

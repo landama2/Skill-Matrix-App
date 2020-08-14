@@ -7,6 +7,7 @@ import { Authority } from 'app/shared/constants/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { SkillsComponent } from 'app/skills';
+import { SkillsSearchComponent } from 'app/skills-search';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -27,6 +28,7 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
           loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
         },
         { path: 'skills', component: SkillsComponent },
+        { path: 'skills-search', component: SkillsSearchComponent },
         ...LAYOUT_ROUTES
       ],
       { enableTracing: DEBUG_INFO_ENABLED }

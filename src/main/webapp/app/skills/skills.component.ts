@@ -10,7 +10,7 @@ import { SkillsService } from 'app/skills/skills.service';
 import { SkillLevelMySuffixService } from 'app/entities/skill-level-my-suffix/skill-level-my-suffix.service';
 import { ISkill } from 'app/skills/skills.model';
 import { ISkillLevelMySuffix } from 'app/shared/model/skill-level-my-suffix.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
 import { IUserSkillMySuffix, UserSkillMySuffix } from 'app/shared/model/user-skill-my-suffix.model';
 import { logger } from 'codelyzer/util/logger';
@@ -34,8 +34,6 @@ export class SkillsComponent implements OnInit, OnDestroy {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
-
-  public skillsForm!: FormGroup;
 
   constructor(
     protected skillService: SkillsService,
@@ -85,7 +83,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     return {
       ...new UserSkillMySuffix(),
       changedAt: today,
-      userId: 2701,
+      userId: 3,
       skillLevelId: skillRow.skillLevel?.id,
       skillId: skillRow.id
     };

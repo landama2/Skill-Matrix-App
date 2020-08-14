@@ -8,25 +8,19 @@ import { ISkill } from 'app/skills/skills.model';
 import { IUserSkillMySuffix } from 'app/shared/model/user-skill-my-suffix.model';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
-// import { ISkillMySuffix } from 'app/shared/model/skill-my-suffix.model';
+import { ISkillSearch } from 'app/skills-search/skills-search.model';
 
 type EntityResponseType = HttpResponse<ISkill>;
 type EntityResponseTypeUS = HttpResponse<IUserSkillMySuffix>;
+type EntityArrayResponseTypeSS = HttpResponse<ISkillSearch[]>;
 type EntityArrayResponseType = HttpResponse<ISkill[]>;
 
 @Injectable({ providedIn: 'root' })
-export class SkillsService {
+export class SkillsSearchService {
   public resourceUrl = SERVER_API_URL + 'api/skills/full';
+  public userSkillBySkillUrl = SERVER_API_URL + 'api/user-skills/by-skill';
 
   constructor(protected http: HttpClient) {}
-
-  // create(skill: ISkill): Observable<EntityResponseType> {
-  //   return this.http.post<ISkill>(this.resourceUrl, skill, { observe: 'response' });
-  // }
-  //
-  // update(skill: ISkill): Observable<EntityResponseType> {
-  //   return this.http.put<ISkill>(this.resourceUrl, skill, { observe: 'response' });
-  // }
 
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<ISkill>(`${this.resourceUrl}/${id}`, { observe: 'response' });
@@ -37,9 +31,9 @@ export class SkillsService {
     return this.http.get<ISkill[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  // delete(id: number): Observable<HttpResponse<{}>> {
-  //   return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  // }
+  query2(name: string): Observable<EntityArrayResponseTypeSS> {
+    return this.http.get<ISkillSearch[]>(`${this.userSkillBySkillUrl}/${name}`, { observe: 'response' });
+  }
 
   createForCurrentUser(userSkill: IUserSkillMySuffix): Observable<EntityResponseTypeUS> {
     const copy = this.convertDateFromClient(userSkill);

@@ -13,15 +13,9 @@ import { ISkillLevelMySuffix } from 'app/shared/model/skill-level-my-suffix.mode
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { IUserSkillMySuffix, UserSkillMySuffix } from 'app/shared/model/user-skill-my-suffix.model';
-import { logger } from 'codelyzer/util/logger';
-import { UserSkillMySuffixService } from 'app/entities/user-skill-my-suffix/user-skill-my-suffix.service';
 import { map, startWith } from 'rxjs/operators';
-// import {startWith} from "@angular/cdk/typings/rxjs";
-// import {map, startWith} from "@angular/cdk/rxjs";
-// import {map, startWith} from "rxjs/operators";
-// import {MatAutocompleteModule} from "@angular/material/autocomplete";
-// import {Observable} from 'rxjs';
-// import {map, startWith} from 'rxjs/operators';
+import { SkillsSearchService } from 'app/skills-search/skills-search.service';
+import { ISkillSearch } from 'app/skills-search/skills-search.model';
 
 type SelectableEntity = ISkillLevelMySuffix;
 
@@ -30,13 +24,13 @@ export interface User {
 }
 
 @Component({
-  selector: 'jhi-skills',
-  templateUrl: './skills.component.html',
-  styleUrls: ['skills.scss']
+  selector: 'jhi-skills-search',
+  templateUrl: './skills-search.component.html',
+  styleUrls: ['skills-search.scss']
 })
-export class SkillsComponent implements OnInit, OnDestroy {
+export class SkillsSearchComponent implements OnInit, OnDestroy {
   skills?: ISkill[];
-  userSkills?: IUserSkillMySuffix[];
+  userSkills?: ISkillSearch[];
   skillLevels?: ISkillLevelMySuffix[];
   eventSubscriber?: Subscription;
   totalItems = 0;
@@ -44,19 +38,14 @@ export class SkillsComponent implements OnInit, OnDestroy {
   page!: number;
   predicate!: string;
   ascending!: boolean;
-  // filteredOptions!: Observable<ISkill[]>;
   myControl = new FormControl();
   ngbPaginationPage = 1;
-
-  options: User[] = [{ name: 'Mary' }, { name: 'Shelley' }, { name: 'Igor' }];
-  filteredOptions!: Observable<User[]>;
-
-  // public skillsForm!: FormGroup;
+  filteredOptions!: Observable<ISkill[]>;
 
   constructor(
     protected skillService: SkillsService,
+    protected skillsSearchService: SkillsSearchService,
     protected skillLevelMySuffixService: SkillLevelMySuffixService,
-    protected userSkillService: UserSkillMySuffixService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
@@ -65,32 +54,6 @@ export class SkillsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.skills = [];
-
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => (typeof value === 'string' ? value : value.name)),
-      map(name => (name ? this._filter(name) : this.options.slice()))
-    );
-
-    // this.filteredOptions = this.myControl.valueChanges
-    //   .pipe(
-    //     startWith(''),
-    //     map(value => typeof value === 'string' ? value : value.name),
-    //     map(name => name ? this._filter(name) : this.skills!.slice())
-    //   );
-
-    // this.filteredOptions = this.myControl.valueChanges
-    //   .pipe(
-    //     startWith(''),
-    //     // map((value: string) => {
-    //     map(value => {
-    //       // const filterValue = value.toLowerCase();
-    //       //
-    //       // return this.skills!.filter(skill => skill.name!.toLowerCase().includes(filterValue));
-    //       // return this._filter(value);
-    //     })
-    //   );
     this.predicate = 'id';
     this.activatedRoute.data.subscribe(data => {
       this.loadPage();
@@ -98,39 +61,13 @@ export class SkillsComponent implements OnInit, OnDestroy {
     this.registerChangeInSkills();
   }
 
-  // private _filter(value: string): ISkill[] {
-  //   const filterValue = value.toLowerCase();
-  //
-  //   // return this.skills!.filter(skill => skill.name!.toLowerCase().includes(filterValue));
-  //   // return this.skills!.filter(option => option.name!.toLowerCase().indexOf(filterValue) === 0);
-  //   return this.skills!.filter(option => option.name!.toLowerCase().startsWith(filterValue));
-  // }
-  //
-  // displayFn(skill: ISkill): string {
-  //   return skill && skill.name ? skill.name : 'abc';
-  // }
-
-  displayFn(user: User): string {
-    return user && user.name ? user.name : 'defaultUserName';
+  private _filter(value: string): ISkill[] {
+    const filterValue = this._normalizeValue(value);
+    return this.skills!.filter(skill => this._normalizeValue(skill.name!).includes(filterValue));
   }
 
-  private _filter(name: string): User[] {
-    const filterValue = name.toLowerCase();
-
-    return this.options.filter(option => option.name.toLowerCase().startsWith(filterValue));
-  }
-
-  onSubmit(): void {
-    // console.log(this.usersForm.value);
-    this.userSkills = [];
-    this.skills?.forEach(value => {
-      const userSkillMySuffix = this.createFromTableRow(value);
-      logger.info('Adding user skill ...' + userSkillMySuffix.skillId);
-
-      this.userSkills!.push(userSkillMySuffix); //TODO remove this array as its for check only
-
-      this.subscribeToSaveResponse(this.userSkillService.createForCurrentUser(userSkillMySuffix));
-    });
+  private _normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserSkillMySuffix>>): void {
@@ -143,17 +80,6 @@ export class SkillsComponent implements OnInit, OnDestroy {
   protected onSaveSuccess(): void {}
 
   protected onSaveError(): void {}
-
-  private createFromTableRow(skillRow: ISkill): IUserSkillMySuffix {
-    const today = moment().startOf('day');
-    return {
-      ...new UserSkillMySuffix(),
-      changedAt: today,
-      userId: 3,
-      skillLevelId: skillRow.skillLevel?.id,
-      skillId: skillRow.id
-    };
-  }
 
   loadPage(page?: number): void {
     const pageToLoad = 1;
@@ -206,6 +132,21 @@ export class SkillsComponent implements OnInit, OnDestroy {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     this.skills = data || [];
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.name)),
+      map(name => (name ? this._filter(name) : this.skills!.slice()))
+    );
+
+    this.myControl.valueChanges.subscribe(value => {
+      if (this.skills) {
+        const names = this.skills.map(option => option.name);
+        if (names.includes(value)) {
+          this.skillsSearchService.query2(value).subscribe((res: HttpResponse<ISkillSearch[]>) => (this.userSkills = res.body || []));
+        }
+      }
+    });
   }
 
   protected onSuccessSkillLevel(data: ISkillLevelMySuffix[] | null, headers: HttpHeaders): void {

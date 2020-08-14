@@ -1,6 +1,6 @@
 {
   "skills": {
-    "title": "Welcome, Java Hipster!",
+    "title": "My skills",
     "subtitle": "This is your skills page",
     "logged": {
       "message": "You are logged in as user \"{{username}}\"."

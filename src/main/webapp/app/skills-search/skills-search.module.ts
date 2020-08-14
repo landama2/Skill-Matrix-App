@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { BlogSharedModule } from 'app/shared/shared.module';
-import { SKILLS_ROUTE } from './skills.route';
-import { SkillsComponent } from './skills.component';
+import { SKILLS_ROUTE } from './skills-search.route';
+import { SkillsSearchComponent } from './skills-search.component';
 import { AddformgroupsModule } from 'app/row';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,6 +36,6 @@ import { DemoMaterialModule } from 'app/skills/material-module';
     MatNativeDateModule,
     ReactiveFormsModule
   ],
-  declarations: [SkillsComponent]
+  declarations: [SkillsSearchComponent]
 })
-export class BlogSkillsModule {}
+export class BlogSkillsSearchModule {}
