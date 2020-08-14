@@ -17,7 +17,7 @@ logging:
   level:
     ROOT: DEBUG
     io.github.jhipster: DEBUG
-    org.jhipster.blog: DEBUG
+    cz.cvut.fel.skillmatrix: DEBUG
 
 spring:
   profiles:
