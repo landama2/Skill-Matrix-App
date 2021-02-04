@@ -24,4 +24,8 @@ public class LoginPage extends PageObject {
         .the("Login link")
         .locatedBy("/html/body/jhi-main/div[2]/div/jhi-home/div/div[2]/div/div[1]/a");
 
+    public static final Target registerLink = Target
+        .the("Login link")
+        .located(By.linkText("Register a new account"));
+
 }

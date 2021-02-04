@@ -1,0 +1,31 @@
+# ACTS Test Suite Generation: Thu Feb 04 08:10:08 CET 2021
+#  '*' represents don't care value
+# Degree of interaction coverage: 2
+# Number of parameters: 3
+# Maximum number of values per parameter: 6
+# Number of configurations: 24
+email,username_length,passwords
+inuse@a.com,1,under 4 chars,false
+valid@a.com,1,valid,false
+invalid@a,1,don't match,false
+empty,1,under 4 chars,false
+inuse@a.com,2,valid,false
+valid@a.com,2,don't match,false
+invalid@a,2,under 4 chars,false
+empty,2,valid,false
+inuse@a.com,3,don't match,false
+valid@a.com,3,under 4 chars,false
+invalid@a,3,valid,false
+empty,3,don't match,false
+inuse@a.com,31,under 4 chars,false
+valid@a.com,31,valid,false
+invalid@a,31,don't match,false
+empty,31,don't match,false
+inuse@a.com,32,under 4 chars,false
+valid@a.com,32,valid,false
+invalid@a,32,don't match,false
+empty,32,under 4 chars,false
+inuse@a.com,33,under 4 chars,false
+valid@a.com,33,valid,false
+invalid@a,33,don't match,false
+empty,33,under 4 chars,false

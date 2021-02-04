@@ -33,4 +33,7 @@ public class RegistrationPage {
         .the("submitButton")
         .located(By.xpath("/html/body/jhi-main/div[2]/div/jhi-register/div/div[2]/div/form/button"));
 
+    public static final Target SUCCESS_MESSAGE = Target.the("Registration success")
+        .locatedBy("/html/body/jhi-main/div[2]/div/jhi-register/div/div[1]/div/div[1]");
+
 }

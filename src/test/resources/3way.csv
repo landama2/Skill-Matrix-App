@@ -1,0 +1,79 @@
+# ACTS Test Suite Generation: Thu Feb 04 08:12:15 CET 2021
+#  '*' represents don't care value 
+# Degree of interaction coverage: 3
+# Number of parameters: 3
+# Maximum number of values per parameter: 6
+# Number of configurations: 72
+email,username_length,passwords
+inuse@a.com,1,don't match
+inuse@a.com,1,under 4 chars
+inuse@a.com,1,valid
+valid@a.com,1,don't match
+valid@a.com,1,under 4 chars
+valid@a.com,1,valid
+invalid@a,1,don't match
+invalid@a,1,under 4 chars
+invalid@a,1,valid
+empty,1,don't match
+empty,1,under 4 chars
+empty,1,valid
+inuse@a.com,2,don't match
+inuse@a.com,2,under 4 chars
+inuse@a.com,2,valid
+valid@a.com,2,don't match
+valid@a.com,2,under 4 chars
+valid@a.com,2,valid
+invalid@a,2,don't match
+invalid@a,2,under 4 chars
+invalid@a,2,valid
+empty,2,don't match
+empty,2,under 4 chars
+empty,2,valid
+inuse@a.com,3,don't match
+inuse@a.com,3,under 4 chars
+inuse@a.com,3,valid
+valid@a.com,3,don't match
+valid@a.com,3,under 4 chars
+valid@a.com,3,valid
+invalid@a,3,don't match
+invalid@a,3,under 4 chars
+invalid@a,3,valid
+empty,3,don't match
+empty,3,under 4 chars
+empty,3,valid
+inuse@a.com,31,don't match
+inuse@a.com,31,under 4 chars
+inuse@a.com,31,valid
+valid@a.com,31,don't match
+valid@a.com,31,under 4 chars
+valid@a.com,31,valid
+invalid@a,31,don't match
+invalid@a,31,under 4 chars
+invalid@a,31,valid
+empty,31,don't match
+empty,31,under 4 chars
+empty,31,valid
+inuse@a.com,32,don't match
+inuse@a.com,32,under 4 chars
+inuse@a.com,32,valid
+valid@a.com,32,don't match
+valid@a.com,32,under 4 chars
+valid@a.com,32,valid
+invalid@a,32,don't match
+invalid@a,32,under 4 chars
+invalid@a,32,valid
+empty,32,don't match
+empty,32,under 4 chars
+empty,32,valid
+inuse@a.com,33,don't match
+inuse@a.com,33,under 4 chars
+inuse@a.com,33,valid
+valid@a.com,33,don't match
+valid@a.com,33,under 4 chars
+valid@a.com,33,valid
+invalid@a,33,don't match
+invalid@a,33,under 4 chars
+invalid@a,33,valid
+empty,33,don't match
+empty,33,under 4 chars
+empty,33,valid
