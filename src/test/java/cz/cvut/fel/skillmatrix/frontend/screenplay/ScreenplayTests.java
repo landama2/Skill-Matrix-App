@@ -1,14 +1,12 @@
 package cz.cvut.fel.skillmatrix.frontend.screenplay;
 
-import cz.cvut.fel.skillmatrix.domain.Category;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.abilities.Authenticate;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.pageobjects.ApplicationHomePage;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.pageobjects.CategoryPage;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.pageobjects.LoginPage;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.pageobjects.RegistrationPage;
-import cz.cvut.fel.skillmatrix.frontend.screenplay.questions.DisplayedItemsQuestion;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.questions.DisplayedMessageQuestion;
-import cz.cvut.fel.skillmatrix.frontend.screenplay.questions.Price;
+import cz.cvut.fel.skillmatrix.frontend.screenplay.questions.ViewedCategoryQuestion;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.tasks.*;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.utils.CsvInputConverter;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.utils.Passwords;
@@ -33,7 +31,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(SerenityRunner.class)
-public class MainTest {
+public class ScreenplayTests {
 
     Actor regularUser =
             Actor.named("test")
@@ -116,7 +114,7 @@ public class MainTest {
             Open.browserOn().the(ApplicationHomePage.class),
             ReadCategory.called(1));
 
-        then(admin).should(seeThat(DisplayedMessageQuestion.forUser(CategoryPage.CREATED_MESSAGE), is(Matchers.containsString("A new Category is created"))));
+        then(admin).should(seeThat(ViewedCategoryQuestion.name(), is(Matchers.containsString("Category 1"))));
     }
 
     @After

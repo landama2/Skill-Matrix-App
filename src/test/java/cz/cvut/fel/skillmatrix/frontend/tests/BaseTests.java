@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class UsersTest extends DriverBase {
+public class BaseTests extends DriverBase {
 
     WebDriver driver;
 
@@ -55,7 +55,7 @@ public class UsersTest extends DriverBase {
     }
 
     @Test
-    public void login() {
+    public void loginAsUser() {
         HomePage homePage = HomePage.goToUnlogged(driver);
         homePage.clickLogin();
         LoginPage loginPage = new LoginPage(driver);

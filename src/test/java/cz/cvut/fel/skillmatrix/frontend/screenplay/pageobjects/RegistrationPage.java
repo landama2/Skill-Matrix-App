@@ -1,8 +1,10 @@
 package cz.cvut.fel.skillmatrix.frontend.screenplay.pageobjects;
 
 import net.serenitybdd.screenplay.targets.Target;
+import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 
+@DefaultUrl("http://localhost:8080/account/register")
 public class RegistrationPage {
 
     public static final Target usernameField = Target
