@@ -12,7 +12,10 @@ import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class UsersTest extends DriverBase {
+
     WebDriver driver;
 
     @Before
@@ -21,36 +24,44 @@ public class UsersTest extends DriverBase {
     }
 
     @After
-    public void after() throws IOException {
+    public void after() {
         driver.close();
     }
 
     @Test
     public void loginAsAdmin() {
-    }
-
-    @Test
-    public void capablancaRegistration() throws InterruptedException {
         HomePage homePage = HomePage.goToUnlogged(driver);
-        Thread.sleep(2000);
-
-        homePage.clickRegister();
-
-        Thread.sleep(5000);
-
-        RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.register("test", "test@test.com", "John", "Doe", "test");
-        Thread.sleep(10000);
-
         homePage.clickLogin();
-        Thread.sleep(10000);
         LoginPage loginPage = new LoginPage(driver);
         assertTrue(loginPage.isOnPage());
-        loginPage.login("test", "test");
-        Thread.sleep(10000);
+        loginPage.login("admin", "admin");
         homePage.logout();
     }
 
-    private void assertTrue(boolean onPage) {
+    @Test
+    public void registration() {
+        HomePage homePage = HomePage.goToUnlogged(driver);
+
+        homePage.clickRegister();
+        RegisterPage registerPage = new RegisterPage(driver);
+        registerPage.register("test", "test@test.com", "John", "Doe", "test");
+
+        //try loging in as the newly created user
+        homePage.clickLogin();
+        LoginPage loginPage = new LoginPage(driver);
+        assertTrue(loginPage.isOnPage());
+        loginPage.login("test", "test");
+        homePage.logout();
     }
+
+    @Test
+    public void login() {
+        HomePage homePage = HomePage.goToUnlogged(driver);
+        homePage.clickLogin();
+        LoginPage loginPage = new LoginPage(driver);
+        assertTrue(loginPage.isOnPage());
+        loginPage.login("user", "user");
+        homePage.logout();
+    }
+
 }
