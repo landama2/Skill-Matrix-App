@@ -29,8 +29,8 @@
         <div class="col-md-8">
             <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
                 <div class="form-group">
-                    <label class="form-control-label" for="login" jhiTranslate="global.form.username.label">Username</label>
-                    <input type="text" class="form-control" id="login" name="login" placeholder="{{ 'global.form.username.placeholder' | translate }}"
+                    <label class="form-control-label" for="username" jhiTranslate="global.form.username.label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="{{ 'global.form.username.placeholder' | translate }}"
                            formControlName="login" #login>
 
                     <div *ngIf="registerForm.get('login')!.invalid && (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)">
