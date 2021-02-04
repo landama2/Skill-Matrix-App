@@ -30,4 +30,8 @@ public class CategoryPage extends PageObject {
     public static final Target CREATED_MESSAGE = Target
         .the("Created message")
         .locatedBy("/html/body/jhi-main/div[2]/div/jhi-category-my-suffix/div/jhi-alert/div/div");
+
+    public static final Target VIEW_BUTTON = Target
+        .the("View button of {0} category")
+        .locatedBy("//*[@id=\"entities\"]/table/tbody/tr[{0}]/td[3]/div/button[1]");
 }

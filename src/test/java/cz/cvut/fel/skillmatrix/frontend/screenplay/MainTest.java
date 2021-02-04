@@ -9,10 +9,7 @@ import cz.cvut.fel.skillmatrix.frontend.screenplay.pageobjects.RegistrationPage;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.questions.DisplayedItemsQuestion;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.questions.DisplayedMessageQuestion;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.questions.Price;
-import cz.cvut.fel.skillmatrix.frontend.screenplay.tasks.CreateCategory;
-import cz.cvut.fel.skillmatrix.frontend.screenplay.tasks.Login;
-import cz.cvut.fel.skillmatrix.frontend.screenplay.tasks.Register;
-import cz.cvut.fel.skillmatrix.frontend.screenplay.tasks.SelectCategory;
+import cz.cvut.fel.skillmatrix.frontend.screenplay.tasks.*;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.utils.CsvInputConverter;
 import cz.cvut.fel.skillmatrix.frontend.screenplay.utils.Passwords;
 import cz.cvut.fel.still.sqa.seleniumStarterPack.config.DriverFactory;
@@ -105,6 +102,19 @@ public class MainTest {
         when(admin).attemptsTo(
                 Open.browserOn().the(ApplicationHomePage.class),
                 CreateCategory.called("Category 1"));
+
+        then(admin).should(seeThat(DisplayedMessageQuestion.forUser(CategoryPage.CREATED_MESSAGE), is(Matchers.containsString("A new Category is created"))));
+    }
+
+    @Test
+    public void readCategory() {
+        givenThat(admin).wasAbleTo(
+            Open.browserOn().the(LoginPage.class),
+            Login.withCredentials());
+
+        when(admin).attemptsTo(
+            Open.browserOn().the(ApplicationHomePage.class),
+            ReadCategory.called(1));
 
         then(admin).should(seeThat(DisplayedMessageQuestion.forUser(CategoryPage.CREATED_MESSAGE), is(Matchers.containsString("A new Category is created"))));
     }
